@@ -48,6 +48,17 @@ function submitInput(event){
     }
 }
 
+// Clear text input
+var clearInput = function(){
+document.querySelector('.userInput').value = "";
+};
+
+// Add text to the results div
+var addTextToResults = function(textToAdd){
+    "<br>",
+    document.getElementById('terminalReslutsCont').innerHTML += "<p>" + textToAdd + "</p>" + "<br>";
+}
+
 function mainEvent(inputValue){
     textInputValue = document.getElementById('terminalTextInput').value.trim();
     switch(inputValue.split(" ")[0]){
@@ -135,7 +146,8 @@ function mainEvent(inputValue){
             alert("funcion clear");
             break;
         case "help":
-            alert("funcion clear");
+            clearInput();
+            executeHelp();
             break;
         default:
             alert("error no existe");
