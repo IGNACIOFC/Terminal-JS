@@ -2,10 +2,12 @@ const get = document.getElementById.bind(document);
 const terminal = get('terminal');
 const create = document.createElement.bind(document);
 var textInputValue;
+var directory;
 
 window.onload = function() {
     init();
     get("terminalTextInput").focus();
+    directory = "";
 };
 
 function clearInput(){
@@ -54,7 +56,7 @@ function mainEvent(inputValue){
     addTextToResults(`>${textInputValue}`);
     switch(inputValue.split(" ")[0]){
         case "pwd":
-            alert("funcion pwd");
+            pwd(directory);
             break;
         case "ls":
             alert("funcion ls");
@@ -62,21 +64,23 @@ function mainEvent(inputValue){
         case "cd":
             switch(inputValue.split(" ")[1]){
                 case "..":{
-                    alert("funcion cd ..");
+                    directory = cdPoints(directory);
                     break;
                 }
                 default:
                     if (inputValue.split(" ").length<=2){
                         if(inputValue.split(" ")[1]== "" || inputValue.split(" ")[1]== undefined){
-                            alert("error");
+                            clearInput();
+                            addTextToResults(textInputValue + " doesn't exist");
                         }
                         else{
-                            alert("ok");
+                            directory = cd(directory, inputValue.split(" ")[1]);
                         }
                         break;
                     }
                     else{
-                        alert("error");
+                        clearInput();
+                        addTextToResults(textInputValue + " doesn't exist");
                         break;
                     }
             }
@@ -127,5 +131,10 @@ function mainEvent(inputValue){
             alert("error no existe");
             break;
     }
+<<<<<<< HEAD
     clearInput();
 }
+=======
+    console.log(directory);
+}
+>>>>>>> pwd
