@@ -7,7 +7,7 @@ var directory;
 window.onload = function() {
     init();
     get("terminalTextInput").focus();
-    directory = "";
+    directory = "main";
 };
 
 function clearInput(){
