@@ -92,6 +92,7 @@ function mainEvent(inputValue){
                 }
                 else{
                     clearInput();
+                    getCurrantDirArray(directory);
                     executeMkdir(inputValue);
                 }
                 break;

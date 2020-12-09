@@ -12,6 +12,7 @@ function cd(directory, inputValue){
     function checkDir(){
         arr.forEach(element => {
             if(Array.isArray(element)){
+                // console.log(element)
                 if(element[0].includes(directoryArr[j+1])){
                     directoryArr.shift();
                     arr = element[1];
