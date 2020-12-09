@@ -12,16 +12,17 @@ function clearInput(){
     get('terminalTextInput').value = "";
 }
 
+var terminalResultsDiv = get('terminalText');
+
 // Scrtoll to the bottom of the results div
 function scrollToBottomOfResults(){
-    var terminalResultsDiv = get('terminalText');
     terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
 }
 // Scroll to the bottom of the results
 scrollToBottomOfResults();
 // Add text to the results div
 function addTextToResults(text){
-    document.getElementById('terminalText').innerHTML += "<p>>" + text + "</p>";
+    terminalResultsDiv.innerHTML += "<p>" + text + "</p>";
     scrollToBottomOfResults();
 }
 
@@ -50,6 +51,7 @@ function submitInput(event){
 
 function mainEvent(inputValue){
     textInputValue = document.getElementById('terminalTextInput').value.trim();
+    addTextToResults(`>${textInputValue}`);
     switch(inputValue.split(" ")[0]){
         case "pwd":
             alert("funcion pwd");
@@ -114,15 +116,16 @@ function mainEvent(inputValue){
         case "echo":
         case "mv":
         case "clear":
-            alert("funcion clear");
+            clearInput();
+            terminalResultsDiv.innerHTML = "";
             break;
         case "help":
-            alert("funcion clear");
+            clearInput();
+            executeHelp();
             break;
         default:
             alert("error no existe");
             break;
     }
     clearInput();
-    addTextToResults(textInputValue);
 }
