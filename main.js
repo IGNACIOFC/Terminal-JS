@@ -91,7 +91,8 @@ function mainEvent(inputValue){
                     alert("error");
                 }
                 else{
-                    alert("ok");
+                    clearInput();
+                    executeMkdir(inputValue);
                 }
                 break;
             }
