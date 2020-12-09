@@ -12,24 +12,34 @@ function clearInput(){
     get('terminalTextInput').value = "";
 }
 
+var terminalResultsDiv = get('terminalText');
+
 // Scrtoll to the bottom of the results div
 function scrollToBottomOfResults(){
-    var terminalResultsDiv = get('terminalText');
     terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
 }
 // Scroll to the bottom of the results
 scrollToBottomOfResults();
 // Add text to the results div
 function addTextToResults(text){
-    document.getElementById('terminalText').innerHTML += "<p>>" + text + "</p>";
+    terminalResultsDiv.innerHTML += "<p>" + text + "</p>";
     scrollToBottomOfResults();
 }
 
 
 function init(){
     var terminalInit = create("div");
+    terminalInit.append(createSpan());
     terminalInit.append(createInput());
     terminal.append(terminalInit);
+}
+
+function createSpan(){
+    var terminalOutput = create("span");
+    terminalOutput.setAttribute("id","terminalTextOutput");
+    terminalOutput.setAttribute("value", "");
+    terminalOutput.innerHTML = `> `
+    return terminalOutput;
 }
 
 function createInput(){
@@ -48,19 +58,9 @@ function submitInput(event){
     }
 }
 
-// Clear text input
-var clearInput = function(){
-document.querySelector('.userInput').value = "";
-};
-
-// Add text to the results div
-var addTextToResults = function(textToAdd){
-    "<br>",
-    document.getElementById('terminalReslutsCont').innerHTML += "<p>" + textToAdd + "</p>" + "<br>";
-}
-
 function mainEvent(inputValue){
     textInputValue = document.getElementById('terminalTextInput').value.trim();
+    addTextToResults(`>${textInputValue}`);
     switch(inputValue.split(" ")[0]){
         case "pwd":
             alert("funcion pwd");
@@ -143,9 +143,8 @@ function mainEvent(inputValue){
         case "echo":
         case "mv":
         case "clear":
-            // alert("funcion clear");
             clearInput();
-            document.getElementById('terminalReslutsCont').innerHTML = "";
+            terminalResultsDiv.innerHTML = "";
             break;
         case "help":
             clearInput();
@@ -156,6 +155,6 @@ function mainEvent(inputValue){
             break;
     }
     clearInput();
-    addTextToResults(textInputValue);
+    // addTextToResults('>');
 }
 
