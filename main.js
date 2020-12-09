@@ -29,17 +29,8 @@ function addTextToResults(text){
 
 function init(){
     var terminalInit = create("div");
-    terminalInit.append(createSpan());
     terminalInit.append(createInput());
     terminal.append(terminalInit);
-}
-
-function createSpan(){
-    var terminalOutput = create("span");
-    terminalOutput.setAttribute("id","terminalTextOutput");
-    terminalOutput.setAttribute("value", "");
-    terminalOutput.innerHTML = `> `
-    return terminalOutput;
 }
 
 function createInput(){
@@ -155,6 +146,5 @@ function mainEvent(inputValue){
             break;
     }
     clearInput();
-    // addTextToResults('>');
 }
 
