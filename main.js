@@ -143,7 +143,9 @@ function mainEvent(inputValue){
         case "echo":
         case "mv":
         case "clear":
-            alert("funcion clear");
+            // alert("funcion clear");
+            clearInput();
+            document.getElementById('terminalReslutsCont').innerHTML = "";
             break;
         case "help":
             clearInput();
