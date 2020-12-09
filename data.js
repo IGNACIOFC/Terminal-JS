@@ -1,4 +1,4 @@
-localStorage.setItem("arr", JSON.stringify(["paradise",
+localStorage.setItem("arr", JSON.stringify([
 ["user", []],
 ["desktop", [
     ["projects",[]],
