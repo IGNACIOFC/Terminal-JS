@@ -131,10 +131,5 @@ function mainEvent(inputValue){
             alert("error no existe");
             break;
     }
-<<<<<<< HEAD
-    clearInput();
-}
-=======
     console.log(directory);
 }
->>>>>>> pwd
