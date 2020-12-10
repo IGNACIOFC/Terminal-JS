@@ -121,6 +121,22 @@ function mainEvent(inputValue){
             }
         case "echo":
         case "mv":
+            if (inputValue.split(" ").length==3){
+                if(inputValue.split(" ")[2]== "" || inputValue.split(" ")[2]== undefined){
+                    clearInput();
+                    addTextToResults(textInputValue + " doesn't exist");
+                }
+                else{
+                    clearInput();
+                    mv(inputValue);
+                }
+                break;
+            }
+            else{
+                clearInput();
+                alert("error");
+                break;
+            }
         case "clear":
             clearInput();
             terminalResultsDiv.innerHTML = "";
@@ -130,6 +146,7 @@ function mainEvent(inputValue){
             executeHelp();
             break;
         default:
+            clearInput();
             alert("error no existe");
             break;
     }
