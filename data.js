@@ -11,5 +11,7 @@ localStorage.setItem("arr", JSON.stringify([
         ["pills", []]
     ]]
 ]],
-["downloads", []]
+["downloads", []],
+{name: "Prueba.doc",
+content: "Ex 1",},
 ]));

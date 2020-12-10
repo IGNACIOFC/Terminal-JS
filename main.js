@@ -91,7 +91,9 @@ function mainEvent(inputValue){
                     alert("error");
                 }
                 else{
-                    alert("ok");
+                    clearInput();
+                    getCurrantDirArray(directory);
+                    executeMkdir(inputValue);
                 }
                 break;
             }
@@ -132,4 +134,5 @@ function mainEvent(inputValue){
             break;
     }
     console.log(directory);
+    localStorage.setItem("arr", JSON.stringify(mainDirArray));
 }
