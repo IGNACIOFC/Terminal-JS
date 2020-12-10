@@ -36,5 +36,6 @@ function cdPoints(directory){
     clearInput();
     var directoryArr = directory.split("/");
     directoryArr.pop();
+    index = [];
     return directory = directoryArr.join("/");;
 }

@@ -134,4 +134,5 @@ function mainEvent(inputValue){
             break;
     }
     console.log(directory);
+    localStorage.setItem("arr", JSON.stringify(mainDirArray));
 }
