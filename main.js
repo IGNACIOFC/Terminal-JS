@@ -151,5 +151,6 @@ function mainEvent(inputValue){
             break;
     }
     console.log(directory);
-    localStorage.setItem("arr", JSON.stringify(mainDirArray));
+    //localStorage.setItem("arr", JSON.stringify(mainDirArray));
+    //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
 }

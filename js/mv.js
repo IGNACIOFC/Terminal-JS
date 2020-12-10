@@ -20,7 +20,16 @@ function mv(inputValue){
                         if(ifDirectoryExist(inputValue.split(" ")[2])){
                             var popArr = arr.splice(arr.indexOf(element), 1);
                             insertInNewDirectory(popArr[0], inputValue.split(" ")[2]);
+                            localStorage.setItem("arr", JSON.stringify(mainArr));
                         };
+                    }
+                    else{
+                        console.log(element[0]);
+                        element[0] = inputValue.split(" ")[2];
+                        console.log(element[0]);
+                        console.log(mainArr)
+                        localStorage.setItem("arr", JSON.stringify(mainArr));
+                        return inputValue.split(" ")[2];
                     }
                 }
             }
@@ -30,17 +39,20 @@ function mv(inputValue){
                         if(ifDirectoryExist(inputValue.split(" ")[2])){
                             var popFile = arr.splice(arr[element], 1);
                             insertInNewDirectory(popFile, inputValue.split(" ")[2]);
+                            localStorage.setItem("arr", JSON.stringify(mainArr));
                         };
                     }
                     else{
                         element.name = inputValue.split(" ")[2];
+                        localStorage.setItem("arr", JSON.stringify(mainArr));
+                        console.log(element);
+                        console.log(mainArr)
                         return element.name;
                     }
                 }
             }
         });
     }
-    localStorage.setItem("arr", JSON.stringify(mainArr));
 }
 
 function ifDirectoryExist(newDirectory){
