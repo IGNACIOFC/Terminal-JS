@@ -7,7 +7,7 @@ var directory;
 window.onload = function () {
   init();
   get("terminalTextInput").focus();
-  directory = "";
+  directory = "main";
 };
 
 function clearInput() {
@@ -64,7 +64,6 @@ function mainEvent(inputValue) {
         switch (inputValue.split(" ")[1]) {
           case "-R":
             ls_R_Function();
-            // alert("funcion ls -R");
             break;
           case "-S":
             ls_S();
@@ -113,7 +112,9 @@ function mainEvent(inputValue) {
         ) {
           alert("error");
         } else {
-          alert("ok");
+          clearInput();
+          getCurrantDirArray(directory);
+          executeMkdir(inputValue);
         }
         break;
       } else {
@@ -138,6 +139,23 @@ function mainEvent(inputValue) {
       }
     case "echo":
     case "mv":
+      if (inputValue.split(" ").length == 3) {
+        if (
+          inputValue.split(" ")[2] == "" ||
+          inputValue.split(" ")[2] == undefined
+        ) {
+          clearInput();
+          addTextToResults(textInputValue + " doesn't exist");
+        } else {
+          clearInput();
+          mv(inputValue);
+        }
+        break;
+      } else {
+        clearInput();
+        alert("error");
+        break;
+      }
     case "clear":
       clearInput();
       terminalResultsDiv.innerHTML = "";
@@ -146,28 +164,12 @@ function mainEvent(inputValue) {
       clearInput();
       executeHelp();
       break;
-    case "cd":
-      switch (inputValue.split(" ")[1]) {
-        case "..": {
-          alert("funcion cd ..");
-          break;
-        }
-        default:
-          if (inputValue.split(" ").length <= 2) {
-            if (
-              inputValue.split(" ")[1] == "" ||
-              inputValue.split(" ")[1] == undefined
-            ) {
-              alert("error");
-            } else {
-              alert("ok");
-            }
-            break;
-          } else {
-            alert("error");
-            break;
-          }
-      }
+    default:
+      clearInput();
+      alert("error no existe");
+      break;
   }
   console.log(directory);
+  //localStorage.setItem("arr", JSON.stringify(mainDirArray));
+  //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
 }
