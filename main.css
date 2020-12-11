@@ -49,3 +49,24 @@ body{
     background: #0080FF;
     text-shadow: none;
 }
+
+.ls_div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px 0;
+}
+
+.ls_R_div {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.ls_item {
+    padding: 0 10px;
+}
+
+.ls_directory {
+    padding: 5px 0;
+}
