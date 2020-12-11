@@ -10,6 +10,7 @@ function mv(inputValue){
     function checkDir(){
         arr.forEach(element => {
             if(Array.isArray(element)){
+                console.log(element[0]);
                 if(element[0].includes(directoryArr[j+1])){
                     directoryArr.shift();
                     arr = element[1];
@@ -35,10 +36,12 @@ function mv(inputValue){
             }
             else{
                 if(element.name == file){
+                    console.log(file);
                     if(inputValue.split(" ")[2].includes("/")){
                         if(ifDirectoryExist(inputValue.split(" ")[2])){
-                            var popFile = arr.splice(arr[element], 1);
-                            insertInNewDirectory(popFile, inputValue.split(" ")[2]);
+                            console.log(arr.indexOf(element));
+                            var popFile = arr.splice(arr.indexOf(element), 1);
+                            insertInNewDirectory(popFile[0], inputValue.split(" ")[2]);
                             localStorage.setItem("arr", JSON.stringify(mainArr));
                         };
                     }
