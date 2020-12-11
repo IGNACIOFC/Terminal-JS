@@ -73,8 +73,65 @@ function mainEvent(inputValue) {
             ls_t();
             alert("funcion ls -t");
             break;
-          default:
-            alert("error");
+        case "mkdir":
+            if (inputValue.split(" ").length<=2){
+                if(inputValue.split(" ")[1]== "" || inputValue.split(" ")[1]== undefined){
+                    alert("error");
+                }
+                else{
+                    clearInput();
+                    getCurrantDirArray(directory);
+                    executeMkdir(inputValue);
+                }
+                break;
+            }
+            else{
+                alert("error");
+                break;
+            }
+        case "cat":
+            if (inputValue.split(" ").length<=5){
+                cat(inputValue);
+                break;
+            }
+            else{
+                alert("error");
+                break;
+            }
+        case "rm":
+            if (inputValue.split(" ").length<=2){
+                alert(inputValue.split(" ")[1]);
+                break;
+            }
+            else{
+                alert("error");
+                break;
+            }
+        case "echo":
+        case "mv":
+            if (inputValue.split(" ").length==3){
+                if(inputValue.split(" ")[2]== "" || inputValue.split(" ")[2]== undefined){
+                    clearInput();
+                    addTextToResults(textInputValue + " doesn't exist");
+                }
+                else{
+                    clearInput();
+                    mv(inputValue);
+                }
+                break;
+            }
+            else{
+                clearInput();
+                alert("error");
+                break;
+            }
+        case "clear":
+            clearInput();
+            terminalResultsDiv.innerHTML = "";
+            break;
+        case "help":
+            clearInput();
+            executeHelp();
             break;
         }
       }
