@@ -66,12 +66,14 @@ function cat(inputValue){
             var fileerr = checkFile(inputArr[1]);
             var file1 = checkFile(inputArr[1]);
             var file2 = checkFile(inputArr[2]);
-            console.log(file1);
-            console.log(file2);
-            var file3 = {name: inputArr[4], content: file1.content + "\n" + file2.content};
-            console.log(file3);
-            insertInNewDirectory(file3, directory);
-            localStorage.setItem("arr", JSON.stringify(mainArr));
+            if(file1 != null && file2 !=null){
+                console.log(file1);
+                console.log(file2);
+                var file3 = {name: inputArr[4], content: file1.content + "\n" + file2.content};
+                console.log(file3);
+                insertInNewDirectory(file3, directory);
+                localStorage.setItem("arr", JSON.stringify(mainArr));
+            }
         }
     }
 
@@ -107,6 +109,3 @@ function cat(inputValue){
         return catInputText;
     }
 }
-
-
-
