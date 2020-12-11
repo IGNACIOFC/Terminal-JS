@@ -102,8 +102,8 @@ function mainEvent(inputValue){
                 break;
             }
         case "cat":
-            if (inputValue.split(" ").length<=2){
-                alert(inputValue.split(" ")[1]);
+            if (inputValue.split(" ").length<=5){
+                cat(inputValue);
                 break;
             }
             else{
