@@ -6,10 +6,16 @@ function executeRm(inputValue, index){
     let currantDirArray = JSON.parse(localStorage.getItem("arr"));
     let flag = false;
     let arr = [];
-    for(let i = 0; i < index.length; i++){
-        arr = currantDirArray[index[i]][1];
+    if(index.length > 0){
+        for(let i = 0; i < index.length; i++){
+            arr = currantDirArray[index[i]][1];
+        }
+    }
+    else{
+        arr = currantDirArray;
     }
     console.log(index);
+    console.log(arr);
     for(let j = 0; j < arr.length; j++){
         console.log(arr[j]);
         if(arr[j][0] === inputValue.split(' ')[2]){

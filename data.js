@@ -12,9 +12,9 @@ localStorage.setItem(
         [
         "documents",
         [
+            ["pills", [{ name: "Practial.js", content: "3+2", size: 430, date: 1607698636000}, ["Homework", []]]],
             { name: "Homework.doc", content: "Ex 1", size: 241, date: 1607698636000},
             { name: "Practial.js", content: "3+2", size: 572, date: 1607698636000},
-            ["pills", [{ name: "Practial.js", content: "3+2", size: 430, date: 1607698636000}, ["Homework", []]]],
         ],
         ],
         { name: "Writing.doc", content: "hjhkj", size: 278, date: 1607698636000},
