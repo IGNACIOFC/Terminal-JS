@@ -15,6 +15,7 @@ function executeRm(inputValue, index){
         arr = currantDirArray;
     }
     console.log(index);
+    console.log(currantDirArray);
     console.log(arr);
     for(let j = 0; j < arr.length; j++){
         console.log(arr[j]);

@@ -11,7 +11,7 @@ function getCurrantDirArray(directory){
                 if(arr[i].includes(directoryArr[j+1])){
                     directoryArr.shift();
                     index.push(i);
-                    arr = arr[i][1]
+                    arr = arr[i][1];
                     checkDir();
                 }
                 else{
