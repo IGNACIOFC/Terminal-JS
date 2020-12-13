@@ -1,21 +1,21 @@
 var j = 0;
 
-// getCurrantDirArray(directory);
-
 function executeRm(inputValue, index){
     let currantDirArray = JSON.parse(localStorage.getItem("arr"));
     let flag = false;
-    let arr = [];
-    if(index.length > 0){
-        for(let i = 0; i < index.length; i++){
-            arr = currantDirArray[index[i]][1];
-        }
-    }
-    else{
-        arr = currantDirArray;
-    }
-    console.log(index);
-    console.log(currantDirArray);
+    let arr = currantDirArray;
+
+    cutCurrantDirArray();
+
+    function cutCurrantDirArray(){
+        if(index.length > 0){
+            for(let i = 0; i < index.length; i++){
+                arr = arr[index[i]][1];
+                index.shift();
+                cutCurrantDirArray();
+            };
+        };
+    };
     console.log(arr);
     for(let j = 0; j < arr.length; j++){
         console.log(arr[j]);
@@ -30,5 +30,5 @@ function executeRm(inputValue, index){
     }
     else{
         addTextToResults(`There is no "${inputValue.split(" ")[2]}" folder in currant directory`);
-    }
-}
+    };
+};
