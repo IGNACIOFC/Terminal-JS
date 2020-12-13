@@ -26,6 +26,9 @@ function getCurrantDirArray(directory){
     }
 }
 
+function executeMkdirFolder(inputValue, index){
+    console.log(inputValue)
+}
 
 function executeMkdir(inputValue, index){
     let currantDirArray =  JSON.parse(localStorage.getItem("arr"));

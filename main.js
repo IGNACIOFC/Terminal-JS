@@ -112,18 +112,26 @@ function mainEvent(inputValue) {
       }
       break;
     case "mkdir":
+      clearInput();
       if (inputValue.split(" ").length <= 2) {
         if (
           inputValue.split(" ")[1] == "" ||
           inputValue.split(" ")[1] == undefined
         ) {
           addTextToResults(textInputValue + " doesn't exist");
+          break;
         } else {
-          clearInput();
-          getCurrantDirArray(directory);
-          executeMkdir(inputValue, index);
+          if(inputValue.split(" ")[1].split("/").length > 1){
+            getCurrantDirArray(directory);
+            executeMkdirFolder(inputValue, index);
+            break;
+          }
+          else {
+            getCurrantDirArray(directory);
+            executeMkdir(inputValue, index);
+            break;
+          }
         }
-        break;
       } else {
         addTextToResults(textInputValue + " doesn't exist");
         break;
@@ -147,7 +155,6 @@ function mainEvent(inputValue) {
         ) {
           addTextToResults(textInputValue + " doesn't exist");
         } else {
-          clearInput();
           getCurrantDirArray(directory);
           executeRm(inputValue, index);
         }
@@ -155,19 +162,16 @@ function mainEvent(inputValue) {
       }
       if ((inputValue.split(" ").length<=3) && (inputValue.split(" ")[1]== "-rf") ){
           if(inputValue.split(" ")[2]== "" || inputValue.split(" ")[2]== undefined){
-              clearInput();
               addTextToResults(textInputValue + " doesn't exist");
-          break;
+              break;
           }
           else{
-              clearInput();
               getCurrantDirArray(directory);
               executeRmRf(inputValue, index);
               break;
           }
       }
       else{
-          clearInput();
           addTextToResults(textInputValue + " doesn't exist");
           break;
       }
