@@ -111,16 +111,15 @@ function mainEvent(inputValue) {
           inputValue.split(" ")[1] == "" ||
           inputValue.split(" ")[1] == undefined
         ) {
-          alert("error");
+          addTextToResults(textInputValue + " doesn't exist");
         } else {
           clearInput();
           getCurrantDirArray(directory);
           executeMkdir(inputValue, index);
-          localStorage.setItem("arr", JSON.stringify(mainDirArray));
         }
         break;
       } else {
-        alert("error");
+        addTextToResults(textInputValue + " doesn't exist");
         break;
       }
     case "cat":
@@ -135,6 +134,19 @@ function mainEvent(inputValue) {
         }
     case "rm":
       clearInput();
+      if(inputValue.split(" ").length<=2){
+        if (
+          inputValue.split(" ")[1] == "" ||
+          inputValue.split(" ")[1] == undefined
+        ) {
+          addTextToResults(textInputValue + " doesn't exist");
+        } else {
+          clearInput();
+          getCurrantDirArray(directory);
+          executeRm(inputValue, index);
+        }
+        break;
+      }
       if ((inputValue.split(" ").length<=3) && (inputValue.split(" ")[1]== "-rf") ){
           if(inputValue.split(" ")[2]== "" || inputValue.split(" ")[2]== undefined){
               clearInput();
@@ -144,7 +156,7 @@ function mainEvent(inputValue) {
           else{
               clearInput();
               getCurrantDirArray(directory);
-              executeRm(inputValue, index);
+              executeRmRf(inputValue, index);
               break;
           }
       }

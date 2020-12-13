@@ -10,9 +10,51 @@ function executeRm(inputValue, index){
     function cutCurrantDirArray(){
         if(index.length > 0){
             for(let i = 0; i < index.length; i++){
-                arr = arr[index[i]][1];
-                index.shift();
-                cutCurrantDirArray();
+                if(Array.isArray(arr)){
+                    arr = arr[index[i]][1];
+                    index.shift();
+                    cutCurrantDirArray();
+                }
+            };
+        };
+    };
+
+    for(let j = 0; j < arr.length; j++){
+        if(Array.isArray(arr[j])){
+            flag = flag;
+        }
+        else{
+            if(arr[j].name.split('.')[0] ===  inputValue.split(' ')[1]){
+                flag = true;
+                arr.splice(j, 1);
+                console.log(arr);
+                console.log(flag);
+            }
+        }
+    }
+    if(flag){
+        localStorage.setItem("arr", JSON.stringify(currantDirArray));
+    }
+    else{
+        addTextToResults(`There is no "${inputValue.split(" ")[1]}" file in currant directory`);
+    };
+};
+
+function executeRmRf(inputValue, index){
+    let currantDirArray = JSON.parse(localStorage.getItem("arr"));
+    let flag = false;
+    let arr = currantDirArray;
+
+    cutCurrantDirArray();
+
+    function cutCurrantDirArray(){
+        if(index.length > 0){
+            for(let i = 0; i < index.length; i++){
+                if(Array.isArray(arr)){
+                    arr = arr[index[i]][1];
+                    index.shift();
+                    cutCurrantDirArray();
+                }
             };
         };
     };

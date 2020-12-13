@@ -1,8 +1,8 @@
 var j = 0;
 
 function getCurrantDirArray(directory){
-    mainDirArray = JSON.parse(localStorage.getItem("arr"));
-    let arr = mainDirArray;
+    let currantDirArray = JSON.parse(localStorage.getItem("arr"));
+    let arr = currantDirArray;
     var directoryArr = directory.split("/");
     checkDir();
     function checkDir(){
@@ -23,8 +23,6 @@ function getCurrantDirArray(directory){
     }
     if(directoryArr.length > 1){
         return index;
-    }else{
-        return directory;
     }
 }
 
@@ -32,17 +30,29 @@ function getCurrantDirArray(directory){
 function executeMkdir(inputValue, index){
     let currantDirArray =  JSON.parse(localStorage.getItem("arr"));
     let flag = false;
-    let arr = [];
-    for(let i = 0; i < index.length; i++){
-        arr = currantDirArray[index[i]][1];
-    }
+    let arr = currantDirArray;
+
+    cutCurrantDirArray();
+
+    function cutCurrantDirArray(){
+        if(index.length > 0){
+            for(let i = 0; i < index.length; i++){
+                if(Array.isArray(arr)){
+                    arr = arr[index[i]][1];
+                    index.shift();
+                    cutCurrantDirArray();
+                }
+            };
+        };
+    };
+
     console.log(arr);
     if(Array.isArray(arr)){
         arr.splice(0, 0, [inputValue.split(" ")[1], []]);
         flag = true;
     }
     if(flag){
-        localStorage.setItem("arr", JSON.stringify(arr));
+        localStorage.setItem("arr", JSON.stringify(currantDirArray));
         console.log('flag')
     }
 }
