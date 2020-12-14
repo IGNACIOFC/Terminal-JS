@@ -1,3 +1,5 @@
+var directories1;
+
 function cd(directory, inputValue){
     clearInput();
     var directoryPath = directory;
@@ -15,6 +17,7 @@ function cd(directory, inputValue){
                 // console.log(element)
                 if(element[0].includes(directoryArr[j+1])){
                     directoryArr.shift();
+                    directories1 = element;
                     arr = element[1];
                     console.log(arr);
                     checkDir();
@@ -30,9 +33,20 @@ function cd(directory, inputValue){
 }
 
 function cdPoints(directory){
+    var arr = JSON.parse(localStorage.getItem("arr"));
     clearInput();
     var directoryArr = directory.split("/");
     directoryArr.pop();
     index = [];
+
+
+    arr.forEach(element => {
+        if(Array.isArray(element)){
+            if(element[0].includes(directoryArr[j+1])){
+                directories1 = element;
+            }
+        }
+    });
+    
     return directory = directoryArr.join("/");;
 }
