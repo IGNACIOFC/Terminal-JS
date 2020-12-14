@@ -5,6 +5,7 @@ var textInputValue;
 var directory;
 var historyArr = [];
 var counter = 0;
+let index = [];
 
 window.onload = function () {
   init();
@@ -29,6 +30,8 @@ function addTextToResults(text) {
   terminalResultsDiv.innerHTML += "<p>" + text + "</p>";
   scrollToBottomOfResults();
 }
+
+
 
 function init() {
   var terminalInit = create("div");
@@ -63,6 +66,15 @@ function submitInput(event) {
   else if(event.keyCode == 27){
     exitTerminal();
   }
+}
+var spanDirectory = document.createElement("span");
+console.log(spanDirectory.innerHTML = directory)
+function addDirectory () {
+  spanDirectory.innerHTML = "<br>";
+  spanDirectory.innerHTML += directory;
+  terminalResultsDiv.append(spanDirectory)
+  spanDirectory.style.color = "yellow";
+
 }
 
 function mainEvent(inputValue) {
@@ -120,20 +132,28 @@ function mainEvent(inputValue) {
       }
       break;
     case "mkdir":
+      clearInput();
       if (inputValue.split(" ").length <= 2) {
         if (
           inputValue.split(" ")[1] == "" ||
           inputValue.split(" ")[1] == undefined
         ) {
-          alert("error");
+          addTextToResults(textInputValue + " doesn't exist");
+          break;
         } else {
-          clearInput();
-          getCurrantDirArray(directory);
-          executeMkdir(inputValue);
+          if(inputValue.split(" ")[1].split("/").length > 1){
+            getCurrantDirArray(directory);
+            executeMkdirFolder(inputValue, index);
+            break;
+          }
+          else {
+            getCurrantDirArray(directory);
+            executeMkdir(inputValue, index);
+            break;
+          }
         }
-        break;
       } else {
-        alert("error");
+        addTextToResults(textInputValue + " doesn't exist");
         break;
       }
     case "cat":
@@ -147,12 +167,33 @@ function mainEvent(inputValue) {
             break;
         }
     case "rm":
-      if (inputValue.split(" ").length <= 2) {
-        alert(inputValue.split(" ")[1]);
+      clearInput();
+      if(inputValue.split(" ").length<=2){
+        if (
+          inputValue.split(" ")[1] == "" ||
+          inputValue.split(" ")[1] == undefined
+        ) {
+          addTextToResults(textInputValue + " doesn't exist");
+        } else {
+          getCurrantDirArray(directory);
+          executeRm(inputValue, index);
+        }
         break;
-      } else {
-        alert("error");
-        break;
+      }
+      if ((inputValue.split(" ").length<=3) && (inputValue.split(" ")[1]== "-rf") ){
+          if(inputValue.split(" ")[2]== "" || inputValue.split(" ")[2]== undefined){
+              addTextToResults(textInputValue + " doesn't exist");
+              break;
+          }
+          else{
+              getCurrantDirArray(directory);
+              executeRmRf(inputValue, index);
+              break;
+          }
+      }
+      else{
+          addTextToResults(textInputValue + " doesn't exist");
+          break;
       }
     case "echo":
     case "mv":
@@ -186,8 +227,9 @@ function mainEvent(inputValue) {
       alert("error no existe");
       break;
   }
+  addDirectory();
   console.log(directory);
-  //localStorage.setItem("arr", JSON.stringify(mainDirArray));
+  // localStorage.setItem("arr", JSON.stringify(mainDirArray));
   //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
 }
 
