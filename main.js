@@ -8,9 +8,10 @@ var counter = 0;
 let index = [];
 
 window.onload = function () {
+  directory = "main";
   init();
   get("terminalTextInput").focus();
-  directory = "main";
+  
 };
 
 function clearInput() {
@@ -27,14 +28,17 @@ function scrollToBottomOfResults() {
 scrollToBottomOfResults();
 // Add text to the results div
 function addTextToResults(text) {
-  terminalResultsDiv.innerHTML += "<p>" + text + "</p>";
+  terminalResultsDiv.innerHTML +=`<p>${directory} ${text}</p>`;
   scrollToBottomOfResults();
 }
 
 
+var spanDirectory = document.createElement("span");
 
 function init() {
   var terminalInit = create("div");
+  spanDirectory.innerHTML = directory;
+  terminalInit.append(spanDirectory);
   terminalInit.append(createInput());
   terminal.append(terminalInit);
 }
@@ -67,11 +71,12 @@ function submitInput(event) {
     exitTerminal();
   }
 }
-var spanDirectory = document.createElement("span");
-console.log(spanDirectory.innerHTML = directory)
-function addDirectory () {
+
+
+function addDirectory (directory) {
+
   spanDirectory.innerHTML = "<br>";
-  spanDirectory.innerHTML += directory;
+  spanDirectory.innerHTML += directory + " $";
   terminalResultsDiv.append(spanDirectory)
   spanDirectory.style.color = "yellow";
 
@@ -79,7 +84,7 @@ function addDirectory () {
 
 function mainEvent(inputValue) {
   textInputValue = document.getElementById("terminalTextInput").value.trim();
-  addTextToResults(`>${textInputValue}`);
+  addTextToResults(`${textInputValue}`);
   switch (inputValue.split(" ")[0]) {
     case "pwd":
       pwd(directory);
@@ -241,7 +246,7 @@ function mainEvent(inputValue) {
       alert("error no existe");
       break;
   }
-  addDirectory();
+  spanDirectory.innerHTML = directory;
   console.log(directory);
   // localStorage.setItem("arr", JSON.stringify(mainDirArray));
   //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
