@@ -110,7 +110,7 @@ function mainEvent(inputValue) {
           case "-t":
             clearInput();
             getCurrantDirArray(directory);
-            executeLsT(inputValue, index);
+            executeLsT(directory, index);
             // alert("funcion ls -t");
             break;
           default:

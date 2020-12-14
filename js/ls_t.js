@@ -1,4 +1,4 @@
-function executeLsT(inputValue, index){
+function executeLsT(directory, index){
     let currantDirArray = JSON.parse(localStorage.getItem("arr"));
     let currantPTag = document.querySelectorAll('p')[document.querySelectorAll('p').length - 1];
     let flag = false;
@@ -47,12 +47,20 @@ function executeLsT(inputValue, index){
 };
 
 function getFolderCreationTime(arrayFolders){
+    let currantDirectory = directory;
     for(let i = 0; i < arrayFolders.length; i++){
         if(Array.isArray(arrayFolders[i])){
-            arrayFolders = arrayFolders[i][1];
-            console.log(arrayFolders);
+            // console.log(arrayFolders[i]);
+            // currantDirectory = `${currantDirectory}${arrayFolders[i][0]}`
+            console.log(`${currantDirectory}/${arrayFolders[i][0]}`);
+
+            // arr = arrayFolders[i][1];
+            // console.log(arr);
             // arrayFolders.shift();
             // cutCurrantDirArray();
+        }
+        else {
+            console.log(arrayFolders[i]);
         }
     };
 };
