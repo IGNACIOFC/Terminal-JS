@@ -6,6 +6,7 @@ var textInputValue;
 var directory;
 var historyArr = [];
 var counter = 0;
+var k = 0;
 let index = [];
 
 window.onload = function () {
@@ -288,6 +289,8 @@ function autocompleteDir(inputValue){
   var arr = mainArr;
   var directoryArr = directory.split("/");
   var j = 0;
+  var val = get('terminalTextInput').value;
+  var arrEl = [];
   checkDir();
   function checkDir(){
       arr.forEach(element => {
@@ -302,7 +305,7 @@ function autocompleteDir(inputValue){
     return arr;
   }
   var input = inputValue.split(" ")[1];
-  if(input){
+  if(input != ""){
     checkInDirectory();
     function checkInDirectory(){
       var repeat = [];
@@ -322,6 +325,31 @@ function autocompleteDir(inputValue){
       });
       get('terminalTextInput').value += repeat[0];
     }
+  }
+  else{
+    arr.forEach(element =>{
+      if(Array.isArray(element)){
+        arrEl.push(val + " " + element[0]);
+      }
+      else{
+        arrEl.push(val + " " + element.name);
+      }
+      console.log(arrEl)
+    });
+    console.log(arrEl);
+    if (k < arrEl.length){
+      get('terminalTextInput').value = "";
+      get('terminalTextInput').value = arrEl[k];
+      k++;
+    }
+    else{
+      k = 0;
+      get('terminalTextInput').value = "";
+      get('terminalTextInput').value = arrEl[k];
+      k ++;
+    }
+    arrEl = [];
+    console.log(arrEl);
   }
 }
 
