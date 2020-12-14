@@ -3,6 +3,8 @@ const terminal = get("terminal");
 const create = document.createElement.bind(document);
 var textInputValue;
 var directory;
+var historyArr = [];
+var counter = 0;
 
 window.onload = function () {
   init();
@@ -46,7 +48,20 @@ function createInput() {
 
 function submitInput(event) {
   if (event.key === "Enter") {
+    storeInput(event.target.value);
     mainEvent(event.target.value);
+  }
+  else if(event.keyCode == 38){
+    browseUp();
+  }
+  else if(event.keyCode == 40){
+    browseDown();
+  }
+  else if(event.keyCode == 9){
+    autocompleteDir();
+  }
+  else if(event.keyCode == 27){
+    exitTerminal();
   }
 }
 
@@ -174,4 +189,50 @@ function mainEvent(inputValue) {
   console.log(directory);
   //localStorage.setItem("arr", JSON.stringify(mainDirArray));
   //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
+}
+
+function storeInput(input){
+  historyArr.push(input);
+  localStorage.setItem("history", JSON.stringify(historyArr));
+}
+
+function browseUp(){
+  if(historyArr.length <= counter){
+    counter = historyArr.length;
+  }
+  else{
+    counter++;
+    event.target.value = historyArr[historyArr.length - counter];
+  }
+}
+function browseDown(){
+  if(counter <= 1){
+    counter = 0;
+    event.target.value = "";
+  }
+  else{
+    event.target.value = historyArr[historyArr.length - counter + 1];
+    counter --;
+  }
+}
+
+function autocompleteDir(){
+
+}
+
+function exitTerminal(){
+  clearInput();
+  terminalResultsDiv.innerHTML = "";
+  var terminal = get('terminal-container');
+  terminal.style.display = "none";
+  var openButton = document.createElement("button");
+  openButton.innerHTML = "Open Terminal";
+  openButton.setAttribute("class", "openButton");
+  openButton.addEventListener("click", function(){
+    openButton.style.display = "none";
+    terminal.style.display = "block";
+    get("terminalTextInput").focus();
+    directory = "main";
+  });
+  document.body.append(openButton);
 }
