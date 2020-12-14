@@ -27,7 +27,9 @@ function getCurrantDirArray(directory){
 }
 
 function executeMkdirFolder(inputValue, index){
-    console.log(inputValue)
+    currantDirValue = inputValue.split(' ')[1].split('/').splice(-1,1);
+    inputValue = inputValue.join('/');
+    console.log(currantDirValue)
 }
 
 function executeMkdir(inputValue, index){
