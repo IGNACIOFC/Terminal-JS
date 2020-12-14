@@ -32,10 +32,7 @@ function executeMkdirFolder(inputValue, index){
     currantDirectory = currantDirValue.join('/');
     getCurrantDirArray(currantDirectory);
     if((currantDirValue.length - 1) === index.length){
-        executeMkdir(currantInput, index)
-        console.log(currantDirValue.length);
-        console.log(index);
-
+        executeMkdir(currantInput, index);
     }
     else{
         addTextToResults(`There is no such directory "${currantDirectory}"`);
@@ -61,7 +58,6 @@ function executeMkdir(inputValue, index){
         };
     };
 
-    console.log(arr);
     if(Array.isArray(arr)){
         arr.splice(0, 0, [inputValue.split(" ")[1], []]);
         flag = true;
