@@ -3,6 +3,7 @@ const terminal = get("terminal");
 const create = document.createElement.bind(document);
 var textInputValue;
 var directory;
+let index = [];
 
 window.onload = function () {
   init();
@@ -110,15 +111,15 @@ function mainEvent(inputValue) {
           inputValue.split(" ")[1] == "" ||
           inputValue.split(" ")[1] == undefined
         ) {
-          alert("error");
+          addTextToResults(textInputValue + " doesn't exist");
         } else {
           clearInput();
           getCurrantDirArray(directory);
-          executeMkdir(inputValue);
+          executeMkdir(inputValue, index);
         }
         break;
       } else {
-        alert("error");
+        addTextToResults(textInputValue + " doesn't exist");
         break;
       }
     case "cat":
@@ -132,12 +133,37 @@ function mainEvent(inputValue) {
             break;
         }
     case "rm":
-      if (inputValue.split(" ").length <= 2) {
-        alert(inputValue.split(" ")[1]);
+      clearInput();
+      if(inputValue.split(" ").length<=2){
+        if (
+          inputValue.split(" ")[1] == "" ||
+          inputValue.split(" ")[1] == undefined
+        ) {
+          addTextToResults(textInputValue + " doesn't exist");
+        } else {
+          clearInput();
+          getCurrantDirArray(directory);
+          executeRm(inputValue, index);
+        }
         break;
-      } else {
-        alert("error");
-        break;
+      }
+      if ((inputValue.split(" ").length<=3) && (inputValue.split(" ")[1]== "-rf") ){
+          if(inputValue.split(" ")[2]== "" || inputValue.split(" ")[2]== undefined){
+              clearInput();
+              addTextToResults(textInputValue + " doesn't exist");
+          break;
+          }
+          else{
+              clearInput();
+              getCurrantDirArray(directory);
+              executeRmRf(inputValue, index);
+              break;
+          }
+      }
+      else{
+          clearInput();
+          addTextToResults(textInputValue + " doesn't exist");
+          break;
       }
     case "echo":
     case "mv":
@@ -172,6 +198,6 @@ function mainEvent(inputValue) {
       break;
   }
   console.log(directory);
-  //localStorage.setItem("arr", JSON.stringify(mainDirArray));
+  // localStorage.setItem("arr", JSON.stringify(mainDirArray));
   //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
 }
