@@ -209,6 +209,23 @@ function mainEvent(inputValue) {
           break;
       }
     case "echo":
+      if (inputValue.split(" ").length <= 10) {
+        if (
+          inputValue.split(" ")[1] == "" ||
+          inputValue.split(" ")[1] == undefined
+        ) {
+          addTextToResults(textInputValue + " doesn't exist");
+        } else {
+          clearInput();
+          validateEcho(inputValue)
+          getCurrantDirArray(directory);
+          executeEcho(inputValue, index);
+        }
+        break;
+      } else {
+        addTextToResults(textInputValue + " doesn't exist");
+        break;
+      }
     case "mv":
       if (inputValue.split(" ").length == 3) {
         if (
@@ -249,6 +266,10 @@ function mainEvent(inputValue) {
           }
           break;
         }
+    case "man":
+      clearInput();
+      executeMan(inputValue);
+      break;
     default:
       clearInput();
       alert("error no existe");
