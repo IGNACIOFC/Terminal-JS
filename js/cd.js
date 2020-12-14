@@ -12,8 +12,7 @@ function cd(directory, inputValue){
     function checkDir(){
         arr.forEach(element => {
             if(Array.isArray(element)){
-                // console.log(element)
-                if(element[0].includes(directoryArr[j+1])){
+                if(element[0] == (directoryArr[j+1])){
                     directoryArr.shift();
                     arr = element[1];
                     console.log(arr);
@@ -23,8 +22,10 @@ function cd(directory, inputValue){
         });
     }
     if(directoryArr.length > 1){
+        console.log(directoryPath);
         return directory = directoryPath;
     }else{
+        console.log(directory);
         return directory;
     }
 }
