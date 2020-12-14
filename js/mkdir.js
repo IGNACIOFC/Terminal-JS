@@ -27,9 +27,19 @@ function getCurrantDirArray(directory){
 }
 
 function executeMkdirFolder(inputValue, index){
-    currantDirValue = inputValue.split(' ')[1].split('/').splice(-1,1);
-    inputValue = inputValue.join('/');
-    console.log(currantDirValue)
+    currantDirValue = inputValue.split(' ')[1].split('/');
+    currantInput = inputValue.split(' ')[0] + ' ' + currantDirValue.splice(-1,1);
+    currantDirectory = currantDirValue.join('/');
+    getCurrantDirArray(currantDirectory);
+    if((currantDirValue.length - 1) === index.length){
+        executeMkdir(currantInput, index)
+        console.log(currantDirValue.length);
+        console.log(index);
+
+    }
+    else{
+        addTextToResults(`There is no such directory "${currantDirectory}"`);
+    }
 }
 
 function executeMkdir(inputValue, index){
