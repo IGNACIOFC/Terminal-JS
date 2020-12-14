@@ -241,6 +241,10 @@ function mainEvent(inputValue) {
           }
           break;
         }
+    case "man":
+      clearInput();
+      executeMan(inputValue);
+      break;
     default:
       clearInput();
       alert("error no existe");
