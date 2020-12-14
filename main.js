@@ -29,6 +29,8 @@ function addTextToResults(text) {
   scrollToBottomOfResults();
 }
 
+
+
 function init() {
   var terminalInit = create("div");
   terminalInit.append(createInput());
@@ -49,6 +51,10 @@ function submitInput(event) {
   if (event.key === "Enter") {
     mainEvent(event.target.value);
   }
+}
+
+function addDirectory () {
+  terminalResultsDiv.innerHTML += " " + directory;
 }
 
 function mainEvent(inputValue) {
@@ -197,6 +203,7 @@ function mainEvent(inputValue) {
       alert("error no existe");
       break;
   }
+  addDirectory();
   console.log(directory);
   // localStorage.setItem("arr", JSON.stringify(mainDirArray));
   //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
