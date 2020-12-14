@@ -222,6 +222,20 @@ function mainEvent(inputValue) {
       clearInput();
       executeHelp();
       break;
+      case "JS":
+        clearInput();
+        if(inputValue.split(" ").length<=2){
+          if (
+            inputValue.split(" ")[1] == "" ||
+            inputValue.split(" ")[1] == undefined
+          ) {
+            addTextToResults(textInputValue + " doesn't exist");
+          } else {
+            getCurrantDirArray(directory);
+            executeJs(inputValue, index);
+          }
+          break;
+        }
     default:
       clearInput();
       alert("error no existe");

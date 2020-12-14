@@ -2,6 +2,7 @@ localStorage.setItem(
     "arr",
     JSON.stringify([
     { name: "Writing1.doc", content: "hjhkj" },
+    { name: "Execute.js", content: "2*5+18-4" },
     ["user", [
         {name: "Work1.doc", content: "Ex 1", size: 683, date: 1607698636000},
         {name: "Work2.doc", content: "Ex 2", size: 840, date: 1607698636000}
