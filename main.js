@@ -184,13 +184,23 @@ function mainEvent(inputValue) {
           break;
       }
     case "echo":
-      clearInput();
-      validateEcho(inputValue);
-      fileName = validateEcho(inputValue)[0];
-      content = validateEcho(inputValue)[1];
-      getCurrantDirArray(directory);
-      executeEcho(content, fileName);
-      break;
+      if (inputValue.split(" ").length <= 10) {
+        if (
+          inputValue.split(" ")[1] == "" ||
+          inputValue.split(" ")[1] == undefined
+        ) {
+          addTextToResults(textInputValue + " doesn't exist");
+        } else {
+          clearInput();
+          validateEcho(inputValue)
+          getCurrantDirArray(directory);
+          executeEcho(inputValue, index);
+        }
+        break;
+      } else {
+        addTextToResults(textInputValue + " doesn't exist");
+        break;
+      }
     case "mv":
       if (inputValue.split(" ").length == 3) {
         if (
