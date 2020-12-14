@@ -52,9 +52,14 @@ function submitInput(event) {
     mainEvent(event.target.value);
   }
 }
-
+var spanDirectory = document.createElement("span");
+console.log(spanDirectory.innerHTML = directory)
 function addDirectory () {
-  terminalResultsDiv.innerHTML += " " + directory;
+  spanDirectory.innerHTML = "<br>";
+  spanDirectory.innerHTML += directory;
+  terminalResultsDiv.append(spanDirectory)
+  spanDirectory.style.color = "yellow";
+
 }
 
 function mainEvent(inputValue) {
