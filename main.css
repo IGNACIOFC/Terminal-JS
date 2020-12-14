@@ -70,3 +70,13 @@ body{
 .ls_directory {
     padding: 5px 0;
 }
+
+.openButton{
+    margin-top: 20%;
+    width: 20%;
+    padding: 3%;
+    cursor: pointer;
+    font-size: 100%;
+    border: none;
+    border-radius: 5px;
+}

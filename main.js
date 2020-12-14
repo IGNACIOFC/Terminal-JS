@@ -1,8 +1,11 @@
 const get = document.getElementById.bind(document);
 const terminal = get("terminal");
 const create = document.createElement.bind(document);
+var mainArr = JSON.parse(localStorage.getItem("arr"));
 var textInputValue;
 var directory;
+var historyArr = [];
+var counter = 0;
 let index = [];
 
 window.onload = function () {
@@ -31,31 +34,47 @@ function addTextToResults(text) {
 }
 
 
+var spanDirectory = document.createElement("span");
 
 function init() {
   var terminalInit = create("div");
-  var spanDirectory = document.createElement("span");
-  spanDirectory.innerHTML = directory;
+  spanDirectory.innerHTML = directory + " $";
   terminalInit.append(spanDirectory);
   terminalInit.append(createInput());
-
   terminal.append(terminalInit);
 }
 
 function createInput() {
-  
   var userInput = create("input");
   userInput.setAttribute("id", "terminalTextInput");
   userInput.setAttribute("value", "");
   userInput.setAttribute("class", "userInput");
   userInput.setAttribute("type", "text");
-  userInput.addEventListener("keyup", submitInput);
+  userInput.addEventListener("keydown", submitInput);
   return userInput;
 }
 
 function submitInput(event) {
+  
   if (event.key === "Enter") {
+    storeInput(event.target.value);
     mainEvent(event.target.value);
+  }
+  else if(event.keyCode == 38){
+    console.log("up");
+    browseUp();
+  }
+  else if(event.keyCode == 40){
+    console.log("down");
+    browseDown();
+  }
+  else if(event.keyCode == 9){
+    event.preventDefault();
+    console.log("tab");
+    autocompleteDir(event.target.value);
+  }
+  else if(event.keyCode == 27){
+    exitTerminal();
   }
 }
 
@@ -102,6 +121,7 @@ function mainEvent(inputValue) {
       switch (inputValue.split(" ")[1]) {
         case "..": {
           directory = cdPoints(directory);
+          console.log(directory);
           break;
         }
         default:
@@ -124,18 +144,26 @@ function mainEvent(inputValue) {
       }
       break;
     case "mkdir":
+      clearInput();
       if (inputValue.split(" ").length <= 2) {
         if (
           inputValue.split(" ")[1] == "" ||
           inputValue.split(" ")[1] == undefined
         ) {
           addTextToResults(textInputValue + " doesn't exist");
+          break;
         } else {
-          clearInput();
-          getCurrantDirArray(directory);
-          executeMkdir(inputValue, index);
+          if(inputValue.split(" ")[1].split("/").length > 1){
+            getCurrantDirArray(directory);
+            executeMkdirFolder(inputValue, index);
+            break;
+          }
+          else {
+            getCurrantDirArray(directory);
+            executeMkdir(inputValue, index);
+            break;
+          }
         }
-        break;
       } else {
         addTextToResults(textInputValue + " doesn't exist");
         break;
@@ -159,7 +187,6 @@ function mainEvent(inputValue) {
         ) {
           addTextToResults(textInputValue + " doesn't exist");
         } else {
-          clearInput();
           getCurrantDirArray(directory);
           executeRm(inputValue, index);
         }
@@ -167,19 +194,16 @@ function mainEvent(inputValue) {
       }
       if ((inputValue.split(" ").length<=3) && (inputValue.split(" ")[1]== "-rf") ){
           if(inputValue.split(" ")[2]== "" || inputValue.split(" ")[2]== undefined){
-              clearInput();
               addTextToResults(textInputValue + " doesn't exist");
-          break;
+              break;
           }
           else{
-              clearInput();
               getCurrantDirArray(directory);
               executeRmRf(inputValue, index);
               break;
           }
       }
       else{
-          clearInput();
           addTextToResults(textInputValue + " doesn't exist");
           break;
       }
@@ -227,6 +251,20 @@ function mainEvent(inputValue) {
       clearInput();
       executeHelp();
       break;
+      case "JS":
+        clearInput();
+        if(inputValue.split(" ").length<=2){
+          if (
+            inputValue.split(" ")[1] == "" ||
+            inputValue.split(" ")[1] == undefined
+          ) {
+            addTextToResults(textInputValue + " doesn't exist");
+          } else {
+            getCurrantDirArray(directory);
+            executeJs(inputValue, index);
+          }
+          break;
+        }
     case "man":
       clearInput();
       executeMan(inputValue);
@@ -236,8 +274,92 @@ function mainEvent(inputValue) {
       alert("error no existe");
       break;
   }
-  
+  spanDirectory.innerHTML = directory + " $";
   console.log(directory);
   // localStorage.setItem("arr", JSON.stringify(mainDirArray));
   //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
+}
+
+function storeInput(input){
+  historyArr.push(input);
+  localStorage.setItem("history", JSON.stringify(historyArr));
+}
+
+function browseUp(){
+  if(historyArr.length <= counter){
+    counter = historyArr.length;
+  }
+  else{
+    counter++;
+    event.target.value = historyArr[historyArr.length - counter];
+  }
+}
+function browseDown(){
+  if(counter <= 1){
+    counter = 0;
+    event.target.value = "";
+  }
+  else{
+    event.target.value = historyArr[historyArr.length - counter + 1];
+    counter --;
+  }
+}
+
+function autocompleteDir(inputValue){
+  var arr = mainArr;
+  var directoryArr = directory.split("/");
+  var j = 0;
+  checkDir();
+  function checkDir(){
+      arr.forEach(element => {
+        if(Array.isArray(element)){
+          if(element[0].includes(directoryArr[j+1])){
+              directoryArr.shift();
+              arr = element[1];
+              checkDir();
+            }
+          }
+      });
+    return arr;
+  }
+  var input = inputValue.split(" ")[1];
+  if(input){
+    checkInDirectory();
+    function checkInDirectory(){
+      var repeat = [];
+      arr.forEach(element => {
+          if(Array.isArray(element)){
+              if(element[0].substring(0,input.length) == input){
+                  var trimmedInput = element[0].substring(input.length, element[0].length);
+                  repeat.push(trimmedInput);
+                  console.log(repeat);
+              }
+          }
+          else if(element.name.substring(0,input.length) == input){
+            console.log(element.name);
+            var trimmedInput = element.name.substring(input.length, element.name.length);
+            repeat.push(trimmedInput);
+          }
+      });
+      get('terminalTextInput').value += repeat[0];
+    }
+  }
+}
+
+
+function exitTerminal(){
+  clearInput();
+  terminalResultsDiv.innerHTML = "";
+  var terminal = get('terminal-container');
+  terminal.style.display = "none";
+  var openButton = document.createElement("button");
+  openButton.innerHTML = "Open Terminal";
+  openButton.setAttribute("class", "openButton");
+  openButton.addEventListener("click", function(){
+    openButton.style.display = "none";
+    terminal.style.display = "block";
+    get("terminalTextInput").focus();
+    directory = "main";
+  });
+  document.body.append(openButton);
 }
