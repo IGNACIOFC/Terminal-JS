@@ -33,19 +33,17 @@ function addTextToResults(text) {
 }
 
 
+var spanDirectory = document.createElement("span");
 
 function init() {
   var terminalInit = create("div");
-  var spanDirectory = document.createElement("span");
   spanDirectory.innerHTML = directory;
   terminalInit.append(spanDirectory);
   terminalInit.append(createInput());
-
   terminal.append(terminalInit);
 }
 
 function createInput() {
-  
   var userInput = create("input");
   userInput.setAttribute("id", "terminalTextInput");
   userInput.setAttribute("value", "");
@@ -248,7 +246,7 @@ function mainEvent(inputValue) {
       alert("error no existe");
       break;
   }
-  
+  spanDirectory.innerHTML = directory;
   console.log(directory);
   // localStorage.setItem("arr", JSON.stringify(mainDirArray));
   //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
