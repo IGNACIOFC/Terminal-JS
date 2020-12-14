@@ -210,6 +210,10 @@ function mainEvent(inputValue) {
       clearInput();
       executeHelp();
       break;
+    case "man":
+      clearInput();
+      executeMan(inputValue);
+      break;
     default:
       clearInput();
       alert("error no existe");
