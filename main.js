@@ -184,6 +184,13 @@ function mainEvent(inputValue) {
           break;
       }
     case "echo":
+      clearInput();
+      validateEcho(inputValue);
+      fileName = validateEcho(inputValue)[0];
+      content = validateEcho(inputValue)[1];
+      getCurrantDirArray(directory);
+      executeEcho(content, fileName);
+      break;
     case "mv":
       if (inputValue.split(" ").length == 3) {
         if (
