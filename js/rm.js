@@ -1,4 +1,4 @@
-var j = 0;
+// var j = 0;
 
 function executeRm(inputValue, index){
     let currantDirArray = JSON.parse(localStorage.getItem("arr"));
@@ -24,7 +24,7 @@ function executeRm(inputValue, index){
             flag = flag;
         }
         else{
-            if(arr[j].name.split('.')[0] ===  inputValue.split(' ')[1]){
+            if(arr[j].name ===  inputValue.split(' ')[1]){
                 flag = true;
                 arr.splice(j, 1);
                 console.log(arr);
