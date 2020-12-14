@@ -4,11 +4,16 @@ localStorage.setItem(
     { name: "Writing1.doc", content: "hjhkj", size: 287, date: 1607698636012},
     { name: "Execute.js", content: "2*5+18-4", size: 903, date: 1607698636034},
     ["user", [
-        {name: "Work1.doc", content: "Ex 1", size: 683, date: 1607698636056},
-        {name: "Work2.doc", content: "Ex 2", size: 840, date: 1607698636027}
+        { name: "Work1.doc", content: "Ex 1", size: 683, date: 1607698636006},
+        { name: "Work2.doc", content: "Ex 2", size: 840, date: 1607698636017},
+        { name: "Work3.doc", content: "Ex 3", size: 187, date: 1607698636032},
+        { name: "Execute.js", content: "2*5+18-4", size: 703, date: 1607698636014},
     ]],
     ["desktop",[
-        ["projects", []],
+        ["projects", ["project1", ["project2", [
+            { name: "Execute.js", content: "2*5+18-4", size: 703, date: 1607698636014},
+        ]]]],
+        ["assembler", []],
         [
         "documents",
         [
