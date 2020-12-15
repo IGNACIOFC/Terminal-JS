@@ -8,12 +8,12 @@ var historyArr = [];
 var counter = 0;
 var k = 0;
 let index = [];
+id = 0;
 
 window.onload = function () {
   directory = "main";
   init();
   get("terminalTextInput").focus();
-  
 };
 
 function clearInput() {
@@ -110,7 +110,7 @@ function mainEvent(inputValue) {
           case "-t":
             clearInput();
             getCurrantDirArray(directory);
-            executeLsT(directory, index);
+            executeLsT(index);
             // alert("funcion ls -t");
             break;
           default:
@@ -265,12 +265,11 @@ function mainEvent(inputValue) {
           getCurrantDirArray(directory);
           executeJs(inputValue, index);
         }
+      }
     case "man":
       clearInput();
       executeMan(inputValue);
       break;
-        break;
-      }
     default:
       clearInput();
       alert("error no existe");

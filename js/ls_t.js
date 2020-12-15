@@ -1,10 +1,9 @@
-function executeLsT(directory, index){
-    let currantDirArray = JSON.parse(localStorage.getItem("arr"));
+let arrayFiles = [];
+let arrayFolders = [];
+function executeLsT(index){
     let currantPTag = document.querySelectorAll('p')[document.querySelectorAll('p').length - 1];
-    let flag = false;
+    let currantDirArray = JSON.parse(localStorage.getItem("arr"));
     let arr = currantDirArray;
-    let arrayFiles = [];
-    let arrayFolders = [];
     let fragment = document.createDocumentFragment();
 
     cutCurrantDirArray();
@@ -21,61 +20,60 @@ function executeLsT(directory, index){
         };
     };
     console.log(arr);
-    for(let j = 0; j < arr.length; j++){
-        if(Array.isArray(arr[j])){
-            flag = flag;
-            arrayFolders.push(arr[j]);
-            // console.log(arr[j]);
-        }
-        else{
-            flag = true;
-            arrayFiles.push(arr[j]);
-        }
-    };
-    sortArrayOfObjects(arrayFiles);
-    // console.log(arrayFiles);
+    getFilesAndFolders(arr);
     for (let file of arrayFiles) {
         let fileList = document.createElement('P');
         fileList.classList.add('ls_item');
-        fileList.innerText = file.name;
+        fileList.setAttribute("data-name", `${file.name}`)
+        fileList.setAttribute("data-date", `${file.date}`)
         fragment.appendChild(fileList);
     };
+    for (let folder of arrayFolders) {
+        let folderList = document.createElement('P');
+        folderList.classList.add('ls_item');
+        folderList.setAttribute("data-name", `${folder[0]}`);
+        folderList.setAttribute("data-date", '1607698600000')
+        // folderList.innerText = folder.name;
+        fragment.appendChild(folderList);
+    };
     currantPTag.appendChild(createDiv_ls());
-    const divLsT = get("ls_t_div");
+    const divLsT = get(`ls_t_div${id}`);
     divLsT.appendChild(fragment);
-    getFolderCreationTime(arrayFolders);
+    displaySortedDirectory(divLsT);
+    id ++;
 };
 
-function getFolderCreationTime(arrayFolders){
-    let currantDirectory = directory;
-    for(let i = 0; i < arrayFolders.length; i++){
-        if(Array.isArray(arrayFolders[i])){
-            // console.log(arrayFolders[i]);
-            // currantDirectory = `${currantDirectory}${arrayFolders[i][0]}`
-            console.log(`${currantDirectory}/${arrayFolders[i][0]}`);
-
-            // arr = arrayFolders[i][1];
-            // console.log(arr);
-            // arrayFolders.shift();
-            // cutCurrantDirArray();
+function getFilesAndFolders(arr){
+    for(let j = 0; j < arr.length; j++){
+        if(Array.isArray(arr[j])){
+            arrayFolders.push(arr[j]);
         }
-        else {
-            console.log(arrayFolders[i]);
+        else{
+            arrayFiles.push(arr[j]);
         }
     };
-};
+}
 
-function sortArrayOfObjects(arrayFiles){
-    arrayFiles.sort(function(a, b) {
-        if (a.date != b.date) {
-            return b.date - a.date;
+function displaySortedDirectory(divLsT){
+    var dateItems = document.querySelectorAll("[data-date]");
+    var dateItemsArray = Array.from(dateItems);
+
+    dateItemsArray.sort(function(a, b) {
+        if (a.dataset.Date != b.dataset.Date) {
+            return b.dataset.Date - a.dataset.Date;
         }
     });
-};
+    dateItemsArray.forEach(function(el) {
+        el.innerHTML = el.dataset.name;
+        divLsT.appendChild(el);
+    });
+    console.log(dateItemsArray);
+}
 
 function createDiv_ls() {
     var divLs = create("DIV");
-    divLs.setAttribute("id", "ls_t_div");
+    divLs.setAttribute("id", `ls_t_div${id}`);
     divLs.setAttribute("class", "ls_div");
+    divLs.innerHTML += "";
     return divLs;
 };
