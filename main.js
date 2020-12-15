@@ -105,8 +105,7 @@ function mainEvent(inputValue) {
             ls_R_Function();
             break;
           case "-S":
-            ls_S();
-            alert("funcion ls -S");
+            ls_S_Function();
             break;
           case "-t":
             ls_t();
