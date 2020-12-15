@@ -307,10 +307,10 @@ function browseDown(){
 }
 
 function autocompleteDir(inputValue){
+  console.log(inputValue)
   var arr = mainArr;
   var directoryArr = directory.split("/");
   var j = 0;
-  var val = get('terminalTextInput').value;
   var arrEl = [];
   checkDir();
   function checkDir(){
@@ -344,16 +344,18 @@ function autocompleteDir(inputValue){
             repeat.push(trimmedInput);
           }
       });
-      get('terminalTextInput').value += repeat[0];
+      if(repeat[0] !=[] && repeat[0] != undefined){
+        get('terminalTextInput').value += repeat[0];
+      }
     }
   }
-  else{
+  /*else{
     arr.forEach(element =>{
       if(Array.isArray(element)){
-        arrEl.push(val + " " + element[0]);
+        arrEl.push(element[0]);
       }
       else{
-        arrEl.push(val + " " + element.name);
+        arrEl.push(element.name);
       }
       console.log(arrEl)
     });
@@ -368,10 +370,11 @@ function autocompleteDir(inputValue){
       get('terminalTextInput').value = "";
       get('terminalTextInput').value = arrEl[k];
       k ++;
+      check = true;
     }
     arrEl = [];
     console.log(arrEl);
-  }
+  }*/
 }
 
 
