@@ -66,6 +66,12 @@ function ls_Function() {
 function ls_R_Function() {
   clearInput();
   console.log("start ls -R function");
+
+  let ls_directory = "";
+  let ls_div = "";
+  let ls_item_array = "";
+  let ls_item_object = "";
+
   checkDirectoryName(directory);
 
   function checkDirectoryName() {
@@ -99,13 +105,10 @@ function ls_R_Function() {
   }
 
   function iterateArray1() {
+
     console.log("inside recursion");
     //Map the directories array's first dimension
     directories2.map((directory) => {
-      let ls_directory = "";
-      let ls_div = "";
-      let ls_item_array = "";
-      let ls_item_object = "";
 
       //if the element is an array (a folder)
       if (Array.isArray(directory)) {
@@ -161,11 +164,6 @@ function ls_R_Function() {
     console.log(directories1);
     directories1[1].map((element1) => {
       
-      let ls_directory = "";
-      let ls_div = "";
-      let ls_item_array = "";
-      let ls_item_object = "";
-
       if (Array.isArray(directories1[1])) {
         console.log(element1)
         //1. Show the directory name
@@ -173,8 +171,7 @@ function ls_R_Function() {
 
         //2. Map the directory content and look through its elements
         // element1.map((element2) => {
-         
-         
+ 
           if (Array.isArray(element1)) {
             ls_item_array += ` <p class="ls_item">${element1[0]}</p>`;
 
@@ -192,7 +189,6 @@ function ls_R_Function() {
             console.log(ls_item_object);
             return ls_item_object;
           }
-        // });
 
         //3. Create a div that shows the objects and arrays found in the directory
         ls_div = `<div class="ls_div">${ls_item_array}${ls_item_object}</div>`;
@@ -216,7 +212,7 @@ function ls_R_Function() {
 }
 
 function ls_S_Function() {
-
+  clearInput();
   var dirArray = directory.split("/");
   var ls_div = "";
   var ls_item_array = "";
@@ -224,13 +220,13 @@ function ls_S_Function() {
 
 
   if (dirArray[dirArray.length-1] == "main"){
+    console.log(directories2);
     directories2.map((element) => {
 
       element.size = element.size || element[1].length;
       directories2.sort(function(a,b) {
         return b.size - a.size
       });
-      console.log(directories2);
 
       if (Array.isArray(element)) {
         ls_item_array += `
@@ -241,10 +237,12 @@ function ls_S_Function() {
         ls_item_object += `
         <p class="ls_item">${element.name}</p>`;
         return ls_item_object;
-        
       }
+
     });
+
   } else if (directories1[0] == dirArray[dirArray.length-1]) {
+    console.log(directories1[1]);
     directories1[1].map((element) => {
 
       element.size = element.size || element[1].length;
@@ -273,4 +271,4 @@ function ls_S_Function() {
 
 }
 
-function ls_t() {}
+// function ls_t() {}
