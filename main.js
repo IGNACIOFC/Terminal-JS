@@ -8,12 +8,12 @@ var historyArr = [];
 var counter = 0;
 var k = 0;
 let index = [];
+id = 0;
 
 window.onload = function () {
   directory = "main";
   init();
   get("terminalTextInput").focus();
-  
 };
 
 function clearInput() {
@@ -108,8 +108,10 @@ function mainEvent(inputValue) {
             ls_S_Function();
             break;
           case "-t":
-            ls_t();
-            alert("funcion ls -t");
+            clearInput();
+            getCurrantDirArray(directory);
+            executeLsT(index);
+            // alert("funcion ls -t");
             break;
           default:
             alert("error");
@@ -251,20 +253,19 @@ function mainEvent(inputValue) {
       clearInput();
       executeHelp();
       break;
-      case "JS":
-        clearInput();
-        if(inputValue.split(" ").length<=2){
-          if (
-            inputValue.split(" ")[1] == "" ||
-            inputValue.split(" ")[1] == undefined
-          ) {
-            addTextToResults(textInputValue + " doesn't exist");
-          } else {
-            getCurrantDirArray(directory);
-            executeJs(inputValue, index);
-          }
-          break;
+    case "JS":
+      clearInput();
+      if(inputValue.split(" ").length<=2){
+        if (
+          inputValue.split(" ")[1] == "" ||
+          inputValue.split(" ")[1] == undefined
+        ) {
+          addTextToResults(textInputValue + " doesn't exist");
+        } else {
+          getCurrantDirArray(directory);
+          executeJs(inputValue, index);
         }
+      }
     case "man":
       clearInput();
       executeMan(inputValue);
@@ -276,8 +277,6 @@ function mainEvent(inputValue) {
   }
   spanDirectory.innerHTML = directory + " $";
   console.log(directory);
-  // localStorage.setItem("arr", JSON.stringify(mainDirArray));
-  //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
 }
 
 function storeInput(input){
