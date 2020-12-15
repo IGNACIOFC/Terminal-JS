@@ -8,12 +8,12 @@ var historyArr = [];
 var counter = 0;
 var k = 0;
 let index = [];
+id = 0;
 
 window.onload = function () {
   directory = "main";
   init();
   get("terminalTextInput").focus();
-  
 };
 
 function clearInput() {
@@ -108,8 +108,10 @@ function mainEvent(inputValue) {
             ls_S_Function();
             break;
           case "-t":
-            ls_t();
-            alert("funcion ls -t");
+            clearInput();
+            getCurrantDirArray(directory);
+            executeLsT(index);
+            // alert("funcion ls -t");
             break;
           default:
             alert("error");
@@ -251,20 +253,19 @@ function mainEvent(inputValue) {
       clearInput();
       executeHelp();
       break;
-      case "JS":
-        clearInput();
-        if(inputValue.split(" ").length<=2){
-          if (
-            inputValue.split(" ")[1] == "" ||
-            inputValue.split(" ")[1] == undefined
-          ) {
-            addTextToResults(textInputValue + " doesn't exist");
-          } else {
-            getCurrantDirArray(directory);
-            executeJs(inputValue, index);
-          }
-          break;
+    case "JS":
+      clearInput();
+      if(inputValue.split(" ").length<=2){
+        if (
+          inputValue.split(" ")[1] == "" ||
+          inputValue.split(" ")[1] == undefined
+        ) {
+          addTextToResults(textInputValue + " doesn't exist");
+        } else {
+          getCurrantDirArray(directory);
+          executeJs(inputValue, index);
         }
+      }
     case "man":
       clearInput();
       executeMan(inputValue);
@@ -276,8 +277,6 @@ function mainEvent(inputValue) {
   }
   spanDirectory.innerHTML = directory + " $";
   console.log(directory);
-  // localStorage.setItem("arr", JSON.stringify(mainDirArray));
-  //lo he comentado porque esto debe estar local, si no hara un "reset" de todo el arr
 }
 
 function storeInput(input){
@@ -306,10 +305,10 @@ function browseDown(){
 }
 
 function autocompleteDir(inputValue){
+  console.log(inputValue)
   var arr = mainArr;
   var directoryArr = directory.split("/");
   var j = 0;
-  var val = get('terminalTextInput').value;
   var arrEl = [];
   checkDir();
   function checkDir(){
@@ -343,16 +342,18 @@ function autocompleteDir(inputValue){
             repeat.push(trimmedInput);
           }
       });
-      get('terminalTextInput').value += repeat[0];
+      if(repeat[0] !=[] && repeat[0] != undefined){
+        get('terminalTextInput').value += repeat[0];
+      }
     }
   }
-  else{
+  /*else{
     arr.forEach(element =>{
       if(Array.isArray(element)){
-        arrEl.push(val + " " + element[0]);
+        arrEl.push(element[0]);
       }
       else{
-        arrEl.push(val + " " + element.name);
+        arrEl.push(element.name);
       }
       console.log(arrEl)
     });
@@ -367,10 +368,11 @@ function autocompleteDir(inputValue){
       get('terminalTextInput').value = "";
       get('terminalTextInput').value = arrEl[k];
       k ++;
+      check = true;
     }
     arrEl = [];
     console.log(arrEl);
-  }
+  }*/
 }
 
 
